@@ -1,4 +1,0 @@
-# lib/l10n.yaml
-arb-dir: lib/core/language/localization/ 
-template-arb-file: app_fr.arb
-output-localization-file: app_localizations.dart

@@ -1,7 +1,7 @@
-// lib/views/home/home_view.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myworkspace/presentaion/views/home/layout/main_layout.dart';
-import 'package:myworkspace/presentaion/views/home/sidebar/menu_items/calendar/calendar_screen.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -11,36 +11,38 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String selectedMenu = "Home"; // Par défaut, afficher l'écran principal
+  bool showProSync = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments;
+    if (args != null && args is Map<String, dynamic>) {
+      setState(() {
+        showProSync = args['showProSync'] ?? false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget getBodyContent() {
-      switch (selectedMenu) {
-        case "ProSync":
-          return const CalendarScreen(); // Appel de l'écran pour "ProSync"
-        default:
-          return const Center(child: Text('Contenu par défaut')); // Contenu par défaut
-      }
-    }
-
     return MainLayout(
-      body: getBodyContent(),
       currentIndex: 0,
       onTabSelected: (index) {
-        // Gérer la navigation via le footer si nécessaire
+        // Gérer la navigation du footer
       },
       onCentrePressed: () {
-        // Gérer l'action centrale
-      },
-      onDevisPressed: () {
-        // Gérer l'action devis
-      },
-      onMenuItemSelected: (String menuTitle) {
         setState(() {
-          selectedMenu = menuTitle; // Met à jour le menu sélectionné
+          showProSync = !showProSync;
         });
       },
+      onDevisPressed: () {
+        // Action devis
+      },
+      body: Container(
+        padding: const EdgeInsets.all(1.0),
+        // child:  CalendarView(),  
+      ),
     );
   }
 }

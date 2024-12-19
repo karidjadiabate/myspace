@@ -1,4 +1,4 @@
-// lib/views/layout/main_layout.dart
+//lib/views/layout/main_layout.dart
 import 'package:flutter/material.dart';
 import 'package:myworkspace/core/theme/colors/app_colors.dart';
 import 'package:myworkspace/presentaion/views/home/layout/components/footer.dart';
@@ -17,10 +17,11 @@ class MainLayout extends StatelessWidget {
     required this.body,
     required this.currentIndex,
     required this.onTabSelected,
-    required, required this.onCentrePressed, required this.onDevisPressed this.onCentrePressed,
+    required this.onCentrePressed,
     required this.onDevisPressed,
-    super.key, required Null Function(String menuTitle) onMenuItemSelected,
-  }) : _scaffoldKey = GlobalKey<ScaffoldState>();
+    Key? key,
+  }) : _scaffoldKey = GlobalKey<ScaffoldState>(),
+       super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +37,7 @@ class MainLayout extends StatelessWidget {
           onDevisPressed: onDevisPressed,
         ),
       ),
-      drawer: MenuScreen(
-        onMenuItemSelected: (String selectedMenu) {
-          // Action à réaliser lorsqu'un élément du menu est sélectionné
-          print("Menu sélectionné : $selectedMenu");
-        },
-      ),
+      drawer: MenuScreen(),  
       body: body,
       bottomNavigationBar: FooterLayout(
         currentIndex: currentIndex,
